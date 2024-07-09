@@ -1,0 +1,53 @@
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[diff]
+	tool = vscode
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	features = decorations
+[merge]
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+[difftool]
+	prompt = false
+[pull]
+	rebase = true
+[credential]
+	helper = osxkeychain
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[push]
+	default = current
+[init]
+	defaultBranch = main
+[core]
+	pager = delta
+[alias]
+	main-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4"
+	root = "!git rev-parse --show-toplevel"
+	list-branches = "!git for-each-ref --sort='-authordate' --format='%(authordate:short)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+	list-branches-fzf = "!git list-branches | fzf-tmux -p80%,60% --height=50% -m --exit-0 | awk '{print $3}'"
+	l = log --pretty=format:\"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue %an\" --decorate --date=short --graph
+	s = status
+	p = pull
+	ap = add -p
+	af = "!git ls-files $(git root) --exclude-standard --others | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git add"
+	apf = "!git diff --name-only | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git add -p"
+	d = diff --color-words
+	dts = difftool --staged
+	cm = commit -m
+	ch = "!f() { if [ -z $@ ]; then git checkout $(git list-branches-fzf); else git checkout $@; fi;}; f"
+	last = log -1 HEAD --stat
+	can = commit --amend --no-edit
+	chb = checkout -b
+	chm = "!f() { git checkout $(git main-branch) $@;}; f"
+	chf = "!git diff --name-only | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git checkout"
+	b = "!git list-branches"
+	bd = "!git list-branches-fzf | xargs -I {} -n 1 git branch -D {}"
+	stl = stash list --date=short
+	se = "!git rev-list --all | xargs git grep -F"
+	cfge = config --global -e
+	alias = "!git config --get-regexp ^alias"

@@ -46,10 +46,9 @@ eval "$(fzf --bash)"
 source $HOME/custom-bash/fzf-git.sh/fzf-git.sh
 source $HOME/custom-bash/fzf-docker/docker-fzf
 
-# export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-
+export FZF_TMUX=1
+export FZF_TMUX_OPTS='-p80%,60% --height=50%'
 export BAT_THEME="tokyonight_night"
 
 function fzf_aws_profile {

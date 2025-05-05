@@ -41,6 +41,10 @@ function git_pr_checkout() {
   gh pr list | fzf --sync --exit-0 | awk '{ print $1 }' | xargs -I {} gh pr checkout {}
 }
 
+# tmux
+[ -z "$TMUX"  ] && { tmux attach -t "$(pwd)" || exec tmux new-session -s "$(pwd)";}
+alias reload_tmux='tmux source-file ~/.tmux.conf'
+
 eval "$(thefuck --alias)"
 eval "$(fzf --bash)"
 source $HOME/custom-bash/fzf-git.sh/fzf-git.sh

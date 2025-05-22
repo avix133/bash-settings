@@ -31,10 +31,12 @@
 	list-branches = "!git for-each-ref --sort='-authordate' --format='%(authordate:short)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 	list-branches-fzf = "!git list-branches | fzf-tmux -p80%,60% --height=50% -m --exit-0 | awk '{print $3}'"
 	l = log --pretty=format:\"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue %an\" --decorate --date=short --graph
-	s = status
+	s = status --untracked-files=no
 	p = pull
 	ap = add -p
+	fh = "!f() { export file_name=\"$1\"; git l -- ${file_name} | fzf --preview 'git diff --color=always {2} q${file_name}' | awk '{print $2}' | xargs -I {} git show {}:${file_name}; }; f"
 	af = "!git ls-files $(git root) --exclude-standard --others | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git add"
+	auf = "!git diff --name-only | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git add"
 	apf = "!git diff --name-only | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git add -p"
 	d = diff --color-words
 	dts = difftool --staged

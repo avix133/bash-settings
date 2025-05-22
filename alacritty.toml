@@ -1,0 +1,22 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+opacity = 0.8
+blur = true
+
+padding.x = 10
+padding.y = 10
+
+decorations = "Buttonless"
+
+[font]
+size = 17
+
+[font.normal]
+family = "CodeNewRoman Nerd Font"
+
+
+[window.dimensions]
+columns = 140
+lines = 40

@@ -20,6 +20,19 @@ function install_brew() {
     fi
 }
 
+function setup_tmux() {
+    ln -s tmux.conf ~/.tmux.conf
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+}
+
+function setup_fonts() {
+    brew install --cask font-code-new-roman-nerd-font
+}
+
+
+
 install_brew
 brew install < brew_packages.txt
 install_bat_theme
+setup_tmux
+setup_fonts

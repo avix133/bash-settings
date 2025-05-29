@@ -39,8 +39,10 @@ function git_pr_checkout() {
 }
 
 # tmux
+export PATH="$PATH:$HOME/.local/scripts"
+bind '"\C-f":"tmux-sessionizer\n"'
 pwd_tmux_session="$(pwd | sed 's|\.|_|g')"
-[ ! "$TERM_PROGRAM" = "tmux" ] && { tmux attach -t "$pwd_tmux_session" || exec tmux new-session -s "$pwd_tmux_session";}
+[ ! "$TERM_PROGRAM" = "tmux" ] && { tmux attach -t "$pwd_tmux_session" || exec tmux new-session -s "$pwd_tmux_session"; }
 
 eval "$(thefuck --alias)"
 eval "$(fzf --bash)"

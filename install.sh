@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
 set -euo pipefail
 
 readonly BAT_THEME_LINK="https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/sublime/tokyonight_night.tmTheme"
@@ -22,7 +24,7 @@ function install_brew() {
 
 function setup_tmux() {
   mkdir -p "$TMUX_CONFIG_DIR"
-  ln -s tmux.conf "$TMUX_CONFIG_DIR/tmux.conf"
+  ln -s "${_SCRIPT_DIR}/tmux.conf" "$TMUX_CONFIG_DIR/tmux.conf"
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
   git clone https://github.com/ThePrimeagen/tmux-sessionizer.git "$HOME/.local/scripts/"
 }

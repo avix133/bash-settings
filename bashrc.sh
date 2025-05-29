@@ -29,7 +29,7 @@ source <(kubectl completion bash)
 
 # allow locally installed npm binaries to be executed;
 # added by `npm i -g add-local-binaries-to-path`
-export PATH="$PATH:./node_modules/.bin"
+export PATH="$PATH:./node_modules/.bin:$HOME/.local/scripts"
 
 alias git_pr='gh pr create --reviewer a --reviewer b --fill-first --assignee @me'
 alias g='git'

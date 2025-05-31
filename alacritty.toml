@@ -20,3 +20,9 @@ family = "CodeNewRoman Nerd Font"
 [window.dimensions]
 columns = 140
 lines = 40
+
+[keyboard]
+bindings = [
+  { key = "W", mods = "Command|Shift", action = "Quit" },
+  { key = "W", mods = "Command", action = "None" }
+]

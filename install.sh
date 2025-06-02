@@ -30,7 +30,7 @@ function setup_tmux() {
 }
 
 function setup_fonts() {
-  brew install --cask font-code-new-roman-nerd-font
+  brew install --cask font-cousine-nerd-font
 }
 
 install_brew

@@ -30,7 +30,9 @@
 	root = "!git rev-parse --show-toplevel"
 	list-branches = "!git for-each-ref --sort='-authordate' --format='%(authordate:short)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 	list-branches-fzf = "!git list-branches | fzf-tmux -p80%,60% --height=50% -m --exit-0 | awk '{print $3}'"
-	l = log --pretty=format:\"%C(yellow)%h %ad%Cred%d %Creset%s%Cblue %an\" --decorate --date=short --graph
+	log-short = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	l = "!git log-short | fzf -m --exit-0 --ansi --preview 'git show --color=always {1} -r'"
+	# fh = "!git ls-files $(git root) --exclude-standard | fzf-tmux -p80%,60% --height=50% --exit-0 | xargs git log-short --follow -- | fzf --ansi --preview 'git show --color=always {1}'"
 	s = status --untracked-files=no
 	p = pull
 	ap = add -p
@@ -42,6 +44,7 @@
 	dts = difftool --staged
 	cm = commit -m
 	ch = "!f() { if [ -z $@ ]; then git checkout $(git list-branches-fzf); else git checkout $@; fi;}; f"
+	cb = "!f() { git list-branches-fzf | tr -d '\n' | pbcopy; }; f"
 	last = log -1 HEAD --stat
 	can = commit --amend --no-edit
 	chb = checkout -b
@@ -49,7 +52,8 @@
 	chf = "!git diff --name-only | fzf-tmux -p80%,60% --height=50% -m --exit-0 | xargs -n 1 git checkout"
 	b = "!git list-branches"
 	bd = "!git list-branches-fzf | xargs -I {} -n 1 git branch -D {}"
-	stl = stash list --date=short
+	stl = "!git stash list | fzf -0 --preview 'git show --pretty=oneline --color=always --patch \"$(echo {} | cut -d: -f1)\"' | cut -d: -f1 | xargs -r git stash apply"
+	std = "!git stash list | fzf -0 --preview 'git show --pretty=oneline --color=always --patch \"$(echo {} | cut -d: -f1)\"' | cut -d: -f1 | xargs -r git stash drop"
 	se = "!git rev-list --all | xargs git grep -F"
 	cfge = config --global -e
 	alias = "!git config --get-regexp ^alias"
